@@ -1,0 +1,25 @@
+server:
+  port: 12389
+
+spring:
+  application:
+    #name: ribbon
+    name: provider
+    #name: feign
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:80/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+
+feign:
+  hystrix:
+    enabled: true

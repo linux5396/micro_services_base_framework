@@ -1,0 +1,36 @@
+server:
+  port: 12391
+
+spring:
+  application:
+    #name: ribbon
+    name: provider
+  main:
+    allow-bean-definition-overriding: true
+    #name: feign
+
+
+eureka:
+  client:
+    service-url:
+      #defaultZone : http://localhost:80/eureka/
+      zone-1: http://linxu:root_psw@localhost:80/eureka/
+      zone-2: http://linxu:root_psw@otherhost:8088/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+    prefer-same-zone-eureka: true
+    healthcheck:
+      enabled: true
+    region: chaozhou
+    availability-zones:
+      chaozhou: zone-2,zone-1
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+    metadata-map:
+      zone: zone-2
+zone.name: zone2
+
+feign:
+  hystrix:
+    enabled: true

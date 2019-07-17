@@ -1,0 +1,14 @@
+#与git上的配置文件名相同
+#spring.application.name=dev
+#spring.cloud.config.label=master
+#spring.cloud.config.profile=dev
+#spring.cloud.config.uri= http://localhost:8888/
+#server.port=8881
+
+
+#eureka.client.fetch-registry=false
+#eureka.client.register-with-eureka=false
+#动态刷新配置
+#management.endpoints.web.exposure.include=refresh
+
+

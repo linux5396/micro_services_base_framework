@@ -1,0 +1,40 @@
+server:
+  port: 8088
+  tomcat:
+    max-threads: 200
+
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    #fetch-registry: false
+    #register-with-eureka: false
+    prefer-same-zone-eureka: true
+          #地区
+    region: chaozhou
+    availability-zones:
+      chaozhou : zone-2,zone-1
+    service-url:
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  server:
+  #关闭安全机制
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
+
+spring:
+  application:
+    name: eureka-Server
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    env:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

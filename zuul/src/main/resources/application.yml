@@ -1,0 +1,19 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://linxu:root_psw@localhost:80/eureka/
+server:
+  port: 11111
+spring:
+  application:
+    name: zuul
+zuul:
+  routes:
+    api-a:
+      path: /ribbon/**
+      serviceId: ribbon
+    api-b:
+      path: /feign/**
+      serviceId: feign
+
+

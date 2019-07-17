@@ -1,0 +1,55 @@
+server:
+  port: 80
+  tomcat:
+    max-threads: 200
+
+
+eureka:
+  instance:
+    hostname: localhost
+    #不偏向IP，则可以通过host映射
+    prefer-ip-address: false
+    status-page-url-path: /actuator/info
+    health-check-url-path: /actuator/health
+    metadata-map:
+      zone: zone-1
+
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    prefer-same-zone-eureka: true
+    #地区
+    region: chaozhou
+    #可用区
+    availability-zones:
+      chaozhou: zone-1,zone-2
+    #数据中心列表
+    service-url:
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      zone-1: http://linxu:root_psw@localhost:80/eureka/
+      zone-2: http://linxu:root_psw@otherhost:8088/eureka/
+    #fetch-registry: true
+    #register-with-eureka: true
+  server:
+  #关闭安全机制
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
+
+spring:
+  application:
+    name: eureka-Server
+  security:
+    user:
+      name: linxu
+      password: root_psw
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    env:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
