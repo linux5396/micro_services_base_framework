@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: config-server
+  security:
+    user:
+      name: linxu
+      password: 76e99cb9-133d-434a-afe9-df152658af13
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/linux5396/micro_services_base_framework
+          search-paths: dynamic_config
+          #访问git的仓库，如果是私有的话，就需要如下的密码
+          username:
+          password:
+          #master分支
+      label: master
+
+server:
+  port: 12345
+#以下是注册到注册中心的配置
+eureka:
+  client:
+    service-url:
+      #defaultZone : http://localhost:80/eureka/
+      #通过安全认证，注册到eurekaServer
+      zone-1: http://linxu:root_psw@localhost:80/eureka/
+      zone-2: http://linxu:root_psw@otherhost:8088/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:
+      enabled: true
+    prefer-same-zone-eureka: true
+      #地区
+    region: chaozhou
+    availability-zones:
+      chaozhou: zone-1,zone-2
+    #机房，可用区
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+    metadata-map:
+      zone: zone-1
