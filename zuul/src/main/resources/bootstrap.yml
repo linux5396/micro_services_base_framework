@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      label: master
+      profile: dev
+      username: linxu
+      password: 76e99cb9-133d-434a-afe9-df152658af13
+      uri: http://localhost:12345/
+server:
+  port: 20001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://linxu:root_psw@localhost:80/eureka/
+
+value4test: origion
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: false

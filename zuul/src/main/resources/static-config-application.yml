@@ -1,0 +1,30 @@
+#下列的配置向EUREKA注册，所以无需手动指定每个service的地址，如果没整合EUREKA，需要手动指定。P227
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://linxu:root_psw@localhost:80/eureka/
+server:
+  port: 11111
+spring:
+  application:
+    name: Gate_Way
+zuul:
+#默认以服务名为前缀。
+  routes:
+    api-a:
+      path: /pro-dynamic/**
+      serviceId: provider
+    api-b:
+      path: /con-dynamic/**
+      serviceId: consumer
+  #取消某个不想向外暴露的服务。
+    ignored-services:
+ #设置全局敏感头部信息
+    sensitiveHeaders: Cookie,Set-Cookie,Authorization
+  #指定路由敏感头部信息
+    routes:
+      trade-route:
+        customSensitiveHeaders: true
+        sensitiveHeaders: Cookie,Set-Cookie,Authorization
+
+
