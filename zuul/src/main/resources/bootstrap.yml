@@ -7,13 +7,52 @@ spring:
       profile: dev
       username: linxu
       password: 76e99cb9-133d-434a-afe9-df152658af13
-      uri: http://localhost:12345/
+      #uri: http://localhost:12345/
+      #快速请求config server，看看是否能够正常获取配置，即快速失败。实现优先拉取配置
+      fail-fast: true
+      retry:
+      #间隔乘数
+        multiplier: 1.1
+      #重试间隔
+        initial-interval: 1000
+        #最大重试次数
+        max-attempts: 5
+        #最大间隔时间
+        max-interval: 2000
+      discovery:
+        enabled: true
+        service-id: config_server
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+      destination: springCloudBus
+
 server:
   port: 20001
+#以下是注册到注册中心的配置
 eureka:
   client:
     service-url:
-      defaultZone: http://linxu:root_psw@localhost:80/eureka/
+      #defaultZone : http://localhost:80/eureka/
+      #通过安全认证，注册到eurekaServer
+      zone-1: http://linxu:root_psw@localhost:80/eureka/
+      zone-2: http://linxu:root_psw@otherhost:8088/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+    #healthcheck:
+     # enabled: true
+    prefer-same-zone-eureka: true
+      #地区
+    region: chaozhou
+    availability-zones:
+      chaozhou: zone-1,zone-2
+    #机房，可用区
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+    metadata-map:
+      zone: zone-1
 
 value4test: origion
 

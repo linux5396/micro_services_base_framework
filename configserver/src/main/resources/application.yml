@@ -1,11 +1,10 @@
 spring:
   application:
-    name: config-server
+    name: config_server
   security:
     user:
       name: linxu
       password: 76e99cb9-133d-434a-afe9-df152658af13
-
   cloud:
     config:
       server:
@@ -17,6 +16,16 @@ spring:
           password:
           #master分支
       label: master
+    bus:
+      refresh:
+        enabled: true
+      env:
+        enabled: true
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+
+
+
 
 server:
   port: 12345
@@ -43,3 +52,8 @@ eureka:
     lease-renewal-interval-in-seconds: 1
     metadata-map:
       zone: zone-1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
