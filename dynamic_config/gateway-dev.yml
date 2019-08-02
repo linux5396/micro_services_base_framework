@@ -8,4 +8,4 @@ zuul:
     api-b:
       path: /con-dynamic/**
       serviceId: consumer
-value4test: auto_web123
+value4test: auto_web_error
