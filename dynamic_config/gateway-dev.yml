@@ -8,4 +8,4 @@ zuul:
     api-b:
       path: /con-dynamic/**
       serviceId: consumer
-value4test: can_not_123
+value4test: group4j
