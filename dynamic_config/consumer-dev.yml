@@ -87,4 +87,4 @@ management:
     web:
       exposure:
         include: ["hystrix.stream"]
-testVal: timeoutInMilliseconds
+testVal: onlythis
