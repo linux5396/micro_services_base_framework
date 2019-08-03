@@ -87,4 +87,4 @@ management:
     web:
       exposure:
         include: ["hystrix.stream"]
-testVal: welldone
+testVal: welldone123
