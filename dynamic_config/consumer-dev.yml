@@ -1,0 +1,90 @@
+server:
+  port: 12390
+spring:
+  application:
+    name: consumer
+  mvc:
+    favicon:
+      enabled: false
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: false
+#通过如下方式调用负载均衡策略
+provider:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.ZoneAvoidanceRule
+    ReadTimeout: 300
+    #MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries *MaxAutoRetriesNextServer)
+    MaxAutoRetries: 1
+    MaxAutoRetriesServer: 1
+    #是否所有操作都进行重试，建议关闭;关闭之后，只会对Get等满足幂等操作的方法进行重试。
+    OkToRetryOnAllOperations: false
+#为不同的服务使用不同的策略
+#provider-1:
+ # ribbon:
+  #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+eureka:
+  client:
+    service-url:
+      #defaultZone : http://localhost:80/eureka/
+      zone-1: http://linxu:root_psw@localhost:80/eureka/
+      zone-2: http://linxu:root_psw@otherhost:443/eureka/
+      #拉取注册信息
+    fetch-registry: true
+    #注册到服务中心
+    register-with-eureka: true
+    #偏向zone
+    prefer-same-zone-eureka: true
+    healthcheck:
+      enabled: true
+    #地域归属
+    region: chaozhou
+    availability-zones:
+      chaozhou: zone-1,zone-2
+      #从服务端拉取注册信息的间隔时间，默认30
+    registry-fetch-interval-seconds: 30
+    #更新实例信息变化到服务中心的间隔时间
+    instance-info-replication-interval-seconds: 30
+  instance:
+  #服务中心收到最后一次心跳之后等待的时间上限，默认为90；超过这个时间，服务中心就会把它剔除掉
+    lease-expiration-duration-in-seconds: 2
+  #续约任务的间隔时间
+    lease-renewal-interval-in-seconds: 1
+    #注册到机房1
+    metadata-map:
+      zone: zone-1
+feign:
+  hystrix:
+    enabled: true
+    #开启请求、响应压缩
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+
+hystrix:
+#格式是   类名#方法名()
+  command:
+    "FeignService#feignService()":
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 2000
+    default:
+        execution:
+          timeout:
+            enabled: true
+          isolation:
+            thread:
+              timeoutInMilliseconds: 1600
+#端点管理
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["hystrix.stream"]
+testVal: timeoutInMilliseconds
