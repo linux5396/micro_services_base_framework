@@ -9,3 +9,7 @@ zuul:
       path: /c/**
       serviceId: consumer
 value4test: well done
+consumer:
+  ribbon:
+    ReadTimeout: 600000
+    Connection: 3000
