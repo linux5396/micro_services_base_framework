@@ -3,9 +3,9 @@ zuul:
 #默认以服务名为前缀。
   routes:
     api-a:
-      path: /pro-dynamic/**
+      path: /p/**
       serviceId: provider
     api-b:
-      path: /con-dynamic/**
+      path: /c/**
       serviceId: consumer
 value4test: well done
